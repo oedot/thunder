@@ -1,8 +1,12 @@
+#----------------------------------------------------------------
+#
+#----------------------------------------------------------------
+
 #
 cmake_minimum_required(VERSION 3.6.0)
 
 #
-project(thunder VERSION 1.0.0 LANGUAGES C)
+project(thunder VERSION 1.0.0 LANGUAGES C CXX)
 
 #
 add_library(thunder
@@ -17,3 +21,21 @@ target_include_directories(thunder
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+#----------------------------------------------------------------
+#
+#----------------------------------------------------------------
+
+#
+option(THUNDER_BUILD_TESTS "" ON)
+
+#
+if(THUNDER_BUILD_TESTS)
+    #
+    enable_testing()
+    #
+    include(GoogleTest)
+    #
+    add_subdirectory(tests)
+
+endif()
