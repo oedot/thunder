@@ -10,6 +10,12 @@ add_executable(thunder_tests
     src/source.cc
 )
 
+#
+target_include_directories(thunder_tests
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/src
+)
+
 # link the Google Test infrastucture, mocking library and a default main function to
 # the test executable.
 target_link_libraries(thunder_tests
