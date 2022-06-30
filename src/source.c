@@ -28,8 +28,32 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
 
         switch (*source_iterator->source) {
 
-            case '\0':
+            case '\0': {
+
+                if (source_iterator->indent > 0)
+                    return (source_iterator->indent--, source_iterator->scanned = _THUNDER_DEDENT);
+
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_EOS);
+            }
+
+            case '\n': {
+
+                source_iterator->source++;
+
+                const char * source = source_iterator->source;
+                while (*source_iterator->source == '\t')
+                    source_iterator->source++;
+
+                const int indent = source_iterator->source - source;
+
+                if (indent < source_iterator->indent)
+                    return (source_iterator->indent = indent, source_iterator->scanned = _THUNDER_DEDENT);
+
+                if (indent > source_iterator->indent)
+                    return (source_iterator->indent = indent, source_iterator->scanned = _THUNDER_INDENT);
+
+                continue;
+            }
 
             case '{':
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_BRACE_OPEN);
