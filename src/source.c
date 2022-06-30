@@ -21,3 +21,135 @@
 // SOFTWARE.
 
 #include "source.h"
+
+int _source_iterator_next(struct _source_iterator_t * source_iterator) {
+
+    for (;;) {
+
+        switch (*source_iterator->source) {
+
+            case '\0':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_EOS);
+
+            case '{':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_BRACE_OPEN);
+            case '}':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_BRACE_CLOSE);
+
+            case '[':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_BRACKET_OPEN);
+            case ']':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_BRACKET_CLOSE);
+
+            case '(':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_PARENTHESIS_OPEN);
+            case ')':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_PARENTHESIS_CLOSE);
+
+            case '&': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '&':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_AMPERSAND_AMPERSAND);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_AMPERSAND);
+                }
+            }
+
+            case '|': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '|':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_PIPE_PIPE);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_PIPE);
+                }
+            }
+
+            case '!': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '=':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_BANG_EQUAL);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_BANG);
+                }
+            }
+
+            case '+':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_PLUS);
+            case '-':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_MINUS);
+            case '*':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_STAR);
+            case '/':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_SLASH);
+
+            case '.':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_DOT);
+            case ',':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_COMMA);
+            case ':':
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_COLON);
+
+            case '<': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '=':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_LESS_EQUAL);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_LESS);
+                }
+            }
+
+            case '>': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '=':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_GREATER_EQUAL);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_GREATER);
+                }
+            }
+
+            case '=': {
+
+                source_iterator->source++;
+
+                switch (*source_iterator->source) {
+
+                    case '=':
+                        return (source_iterator->source++, source_iterator->scanned = _THUNDER_EQUAL_EQUAL);
+
+                    default:
+                        return (source_iterator->scanned = _THUNDER_EQUAL);
+                }
+            }
+
+            default: {
+
+                return (source_iterator->source++, source_iterator->scanned = _THUNDER_ERROR);
+            }
+        }
+    }
+}
