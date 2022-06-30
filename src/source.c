@@ -146,6 +146,11 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
                 }
             }
 
+            case ' ':
+            case '\r':
+            case '\t':
+                continue;
+
             default: {
 
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_ERROR);
