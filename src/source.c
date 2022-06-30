@@ -151,6 +151,16 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
             case '\t':
                 continue;
 
+            case '#': {
+
+                source_iterator->source++;
+
+                while (*source_iterator->source != '\n' && *source_iterator->source != '\0')
+                    source_iterator->source++;
+
+                continue;
+            }
+
             default: {
 
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_ERROR);
