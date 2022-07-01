@@ -23,6 +23,8 @@
 #ifndef __THUNDER_H
 #define __THUNDER_H
 
-
+// for now, we're going to start as simple as possible - we'll support only double-precision,
+// floating point numbers, this will obviously expand over time
+typedef double value_t;
 
 #endif // __THUNDER_H

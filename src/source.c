@@ -20,7 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <stdlib.h>
+
 #include "source.h"
+
+int _source_iterator_number(struct _source_iterator_t * source_iterator) {
+
+    return (*source_iterator->source >= '0' && *source_iterator->source <= '9');
+}
 
 int _source_iterator_next(struct _source_iterator_t * source_iterator) {
 
@@ -172,8 +179,11 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
 
             case ' ':
             case '\r':
-            case '\t':
+            case '\t': {
+
+                source_iterator->source++;
                 continue;
+            }
 
             case '#': {
 
@@ -186,6 +196,23 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
             }
 
             default: {
+
+                if (_source_iterator_number(source_iterator)) {
+
+                    const char * source = source_iterator->source++;
+
+                    while (_source_iterator_number(source_iterator))
+                        source_iterator->source++;
+
+                    if (*source_iterator->source == '.') {
+                        source_iterator->source++;
+
+                        while (_source_iterator_number(source_iterator))
+                            source_iterator->source++;
+                    }
+
+                    return (source_iterator->value = strtod(source, NULL), source_iterator->scanned = _THUNDER_NUMBER);
+                }
 
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_ERROR);
             }

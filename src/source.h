@@ -23,6 +23,8 @@
 #ifndef __THUNDER_SOURCE_H
 #define __THUNDER_SOURCE_H
 
+#include "thunder/thunder.h"
+
 enum {
     _THUNDER_INDENT = 0,
     _THUNDER_DEDENT,
@@ -63,6 +65,8 @@ enum {
     _THUNDER_EQUAL,
     _THUNDER_EQUAL_EQUAL,
 
+    _THUNDER_NUMBER,
+
     _THUNDER_ERROR,
     _THUNDER_EOS
 };
@@ -74,6 +78,8 @@ struct _source_iterator_t {
     int indent;
     // the most recent token
     int scanned;
+    // the parsed value if the token is a literal
+    value_t value;
 };
 
 // read the next token and store it in 'source_iterator'
