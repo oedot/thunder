@@ -21,8 +21,40 @@
 // SOFTWARE.
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "source.h"
+
+struct Th_Reserved {
+    // the name of the reserved word
+    const char * source;
+    // the length of the reserved word
+    int size;
+    // the associated token type
+    int scanned;
+};
+
+// the table of reserved words and their associated token types
+const struct Th_Reserved reserved[] = {
+    { "break",    sizeof("break")    - 1, _THUNDER_BREAK    },
+    { "continue", sizeof("continue") - 1, _THUNDER_CONTINUE },
+    { "else",     sizeof("else")     - 1, _THUNDER_ELSE     },
+    { "fn",       sizeof("fn")       - 1, _THUNDER_FN       },
+    { "for",      sizeof("for")      - 1, _THUNDER_FOR      },
+    { "if",       sizeof("if")       - 1, _THUNDER_IF       },
+    { "let",      sizeof("let")      - 1, _THUNDER_LET      },
+    { "pass",     sizeof("pass")     - 1, _THUNDER_PASS     },
+    { "return",   sizeof("return")   - 1, _THUNDER_RETURN   },
+    { "while",    sizeof("while")    - 1, _THUNDER_WHILE    },
+    // sentinel to mark the end of the array
+    { NULL,       0,                      _THUNDER_ERROR    }
+};
+
+int Th_SourceIteratorName(struct Th_SourceIterator * source_iterator) {
+
+    return (*source_iterator->source >= 'A' && *source_iterator->source <= 'Z') ||
+           (*source_iterator->source >= 'a' && *source_iterator->source <= 'z') || (*source_iterator->source == '_');
+}
 
 int Th_SourceIteratorNumber(struct Th_SourceIterator * source_iterator) {
 
@@ -212,6 +244,25 @@ int Th_SourceIteratorNext(struct Th_SourceIterator * source_iterator) {
                     }
 
                     return (source_iterator->value = strtod(source, NULL), source_iterator->scanned = _THUNDER_NUMBER);
+                }
+
+                if (Th_SourceIteratorName(source_iterator)) {
+
+                    const char * source = source_iterator->source++;
+
+                    while (Th_SourceIteratorName(source_iterator) || Th_SourceIteratorNumber(source_iterator))
+                        source_iterator->source++;
+
+                    for (int index = 0; reserved[index].source != NULL; index++) {
+
+                        if ((source_iterator->source - source) != reserved[index].size)
+                            continue;
+
+                        if (strncmp(reserved[index].source, source, reserved[index].size) == 0)
+                            return (source_iterator->scanned = reserved[index].scanned);
+                    }
+
+                    return (source_iterator->scanned = _THUNDER_NAME);
                 }
 
                 return (source_iterator->source++, source_iterator->scanned = _THUNDER_ERROR);
