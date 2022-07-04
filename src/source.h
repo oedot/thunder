@@ -71,7 +71,7 @@ enum {
     _THUNDER_EOS
 };
 
-struct _source_iterator_t {
+struct Th_SourceIterator {
     // the source code being parsed
     const char * source;
     // current indentation level
@@ -79,10 +79,10 @@ struct _source_iterator_t {
     // the most recent token
     int scanned;
     // the parsed value if the token is a literal
-    value_t value;
+    Th_Value value;
 };
 
 // read the next token and store it in 'source_iterator'
-int _source_iterator_next(struct _source_iterator_t * source_iterator);
+int Th_SourceIteratorNext(struct Th_SourceIterator * source_iterator);
 
 #endif // __THUNDER_SOURCE_H

@@ -25,6 +25,6 @@
 
 // for now, we're going to start as simple as possible - we'll support only double-precision,
 // floating point numbers, this will obviously expand over time
-typedef double value_t;
+typedef double Th_Value;
 
 #endif // __THUNDER_H

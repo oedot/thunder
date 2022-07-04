@@ -24,12 +24,12 @@
 
 #include "source.h"
 
-int _source_iterator_number(struct _source_iterator_t * source_iterator) {
+int Th_SourceIteratorNumber(struct Th_SourceIterator * source_iterator) {
 
     return (*source_iterator->source >= '0' && *source_iterator->source <= '9');
 }
 
-int _source_iterator_next(struct _source_iterator_t * source_iterator) {
+int Th_SourceIteratorNext(struct Th_SourceIterator * source_iterator) {
 
     for (;;) {
 
@@ -197,17 +197,17 @@ int _source_iterator_next(struct _source_iterator_t * source_iterator) {
 
             default: {
 
-                if (_source_iterator_number(source_iterator)) {
+                if (Th_SourceIteratorNumber(source_iterator)) {
 
                     const char * source = source_iterator->source++;
 
-                    while (_source_iterator_number(source_iterator))
+                    while (Th_SourceIteratorNumber(source_iterator))
                         source_iterator->source++;
 
                     if (*source_iterator->source == '.') {
                         source_iterator->source++;
 
-                        while (_source_iterator_number(source_iterator))
+                        while (Th_SourceIteratorNumber(source_iterator))
                             source_iterator->source++;
                     }
 
