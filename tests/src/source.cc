@@ -28,48 +28,48 @@ TEST(SourceIterator, SourceIteratorNext) {
     };
 
     const Expected expected[] = {
-        { _THUNDER_FN,                 0, 0.0 },
-        { _THUNDER_NAME,               0, 0.0 },
-        { _THUNDER_PARENTHESIS_OPEN,   0, 0.0 },
-        { _THUNDER_PARENTHESIS_CLOSE,  0, 0.0 },
-        { _THUNDER_COLON,              0, 0.0 },
+        { _THUNDER_FN,                 0, Th_MakeNumber(0.0) },
+        { _THUNDER_NAME,               0, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_OPEN,   0, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_CLOSE,  0, Th_MakeNumber(0.0) },
+        { _THUNDER_COLON,              0, Th_MakeNumber(0.0) },
 
-        { _THUNDER_INDENT,             1, 0.0 },
-        { _THUNDER_PASS,               1, 0.0 },
-        { _THUNDER_DEDENT,             0, 0.0 },
+        { _THUNDER_INDENT,             1, Th_MakeNumber(0.0) },
+        { _THUNDER_PASS,               1, Th_MakeNumber(0.0) },
+        { _THUNDER_DEDENT,             0, Th_MakeNumber(0.0) },
 
-        { _THUNDER_FN,                 0, 0.0 },
-        { _THUNDER_NAME,               0, 0.0 },
-        { _THUNDER_PARENTHESIS_OPEN,   0, 0.0 },
-        { _THUNDER_PARENTHESIS_CLOSE,  0, 0.0 },
-        { _THUNDER_COLON,              0, 0.0 },
+        { _THUNDER_FN,                 0, Th_MakeNumber(0.0) },
+        { _THUNDER_NAME,               0, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_OPEN,   0, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_CLOSE,  0, Th_MakeNumber(0.0) },
+        { _THUNDER_COLON,              0, Th_MakeNumber(0.0) },
 
-        { _THUNDER_INDENT,             1, 0.0 },
-        { _THUNDER_LET,                1, 0.0 },
-        { _THUNDER_NAME,               1, 0.0 },
-        { _THUNDER_EQUAL,              1, 0.0 },
-        { _THUNDER_NUMBER,             1, 0.0 },
+        { _THUNDER_INDENT,             1, Th_MakeNumber(0.0) },
+        { _THUNDER_LET,                1, Th_MakeNumber(0.0) },
+        { _THUNDER_NAME,               1, Th_MakeNumber(0.0) },
+        { _THUNDER_EQUAL,              1, Th_MakeNumber(0.0) },
+        { _THUNDER_NUMBER,             1, Th_MakeNumber(0.0) },
 
-        { _THUNDER_IF,                 1, 0.0 },
-        { _THUNDER_PARENTHESIS_OPEN,   1, 0.0 },
-        { _THUNDER_NAME,               1, 0.0 },
-        { _THUNDER_EQUAL_EQUAL,        1, 0.0 },
-        { _THUNDER_NUMBER,             1, 0.0 },
-        { _THUNDER_PARENTHESIS_CLOSE,  1, 0.0 },
-        { _THUNDER_COLON,              1, 0.0 },
+        { _THUNDER_IF,                 1, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_OPEN,   1, Th_MakeNumber(0.0) },
+        { _THUNDER_NAME,               1, Th_MakeNumber(0.0) },
+        { _THUNDER_EQUAL_EQUAL,        1, Th_MakeNumber(0.0) },
+        { _THUNDER_NUMBER,             1, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_CLOSE,  1, Th_MakeNumber(0.0) },
+        { _THUNDER_COLON,              1, Th_MakeNumber(0.0) },
 
-        { _THUNDER_INDENT,             2, 0.0 },
-        { _THUNDER_NAME,               2, 0.0 },
-        { _THUNDER_PARENTHESIS_OPEN,   2, 0.0 },
-        { _THUNDER_PARENTHESIS_CLOSE,  2, 0.0 },
+        { _THUNDER_INDENT,             2, Th_MakeNumber(0.0) },
+        { _THUNDER_NAME,               2, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_OPEN,   2, Th_MakeNumber(0.0) },
+        { _THUNDER_PARENTHESIS_CLOSE,  2, Th_MakeNumber(0.0) },
 
-        { _THUNDER_DEDENT,             1, 0.0 },
-        { _THUNDER_DEDENT,             0, 0.0 },
+        { _THUNDER_DEDENT,             1, Th_MakeNumber(0.0) },
+        { _THUNDER_DEDENT,             0, Th_MakeNumber(0.0) },
 
-        { _THUNDER_EOS,                0, 0.0 }
+        { _THUNDER_EOS,                0, Th_MakeNumber(0.0) }
     };
 
-    Th_SourceIterator source_iterator = { source, 0, _THUNDER_ERROR, 0.0 };
+    Th_SourceIterator source_iterator = { source, 0, _THUNDER_ERROR, Th_MakeNumber(0.0) };
 
     for (int index = 0; source_iterator.scanned != _THUNDER_EOS; index++) {
         Th_SourceIteratorNext(&source_iterator);

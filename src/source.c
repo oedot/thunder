@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "thunder/thunder.h"
 #include "source.h"
 
 struct Th_Reserved {
@@ -243,7 +244,7 @@ int Th_SourceIteratorNext(struct Th_SourceIterator * source_iterator) {
                             source_iterator->source++;
                     }
 
-                    return (source_iterator->value = strtod(source, NULL), source_iterator->scanned = _THUNDER_NUMBER);
+                    return (source_iterator->value = Th_MakeNumber(strtod(source, NULL)), source_iterator->scanned = _THUNDER_NUMBER);
                 }
 
                 if (Th_SourceIteratorName(source_iterator)) {
