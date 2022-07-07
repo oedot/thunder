@@ -10,6 +10,7 @@ project(thunder VERSION 1.0.0 LANGUAGES C CXX)
 
 #
 add_library(thunder
+    src/parser.c
     src/source.c
 )
 
